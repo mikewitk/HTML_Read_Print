@@ -1,5 +1,6 @@
 function getAndPrintHTML () {
 
+  var https = require('https');
   var fullData = '';
   var requestOptions = {
     host: 'sytantris.github.io',
@@ -8,25 +9,23 @@ function getAndPrintHTML () {
 
 // notice that https.get takes a callback with one parameter -
 // response, which is a Stream that represents the HTTP response
-https.get(requestOptions, function (response) {
+  https.get(requestOptions, function (response) {
 
   // set encoding of received data to UTF-8
   response.setEncoding('utf8');
 
   // the callback is invoked when a `data` chunk is received
   response.on('data', function (data) {
-    fullData += data + '\n';
+    fullData += data;
   });
-
-  console.log(data + '\n');
-
 
   // the callback is invoked when all of the data has been received
   // (the `end` of the stream)
   response.on('end', function() {
+    console.log('Full Data: ', fullData) ;
     console.log('Response stream complete.');
   });
-
 });
-
 }
+
+console.log(getAndPrintHTML()) ;
